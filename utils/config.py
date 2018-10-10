@@ -1,5 +1,5 @@
 import json
-from bunch import Bunch
+from easydict import EasyDict
 import os
 
 
@@ -14,13 +14,13 @@ def get_config_from_json(json_file):
         config_dict = json.load(config_file)
 
     # convert the dictionary to a namespace using bunch lib
-    config = Bunch(config_dict)
+    config = EasyDict(config_dict)
 
     return config, config_dict
 
 
-def process_config(jsonfile):
-    config, _ = get_config_from_json(jsonfile)
-    config.summary_dir = os.path.join("../experiments", config.exp_name, "summary")
-    config.checkpoint_dir = os.path.join("../experiments", config.exp_name, "checkpoint")
+def process_config(json_file):
+    config, _ = get_config_from_json(json_file)
+    config.summary_dir = os.path.join("../experiments", config.exp_name, "summary/")
+    config.checkpoint_dir = os.path.join("../experiments", config.exp_name, "checkpoint/")
     return config
